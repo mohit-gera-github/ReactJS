@@ -25,9 +25,10 @@
 }
 
 /* Body */
-.search{
-    padding: 20px;
-    font-size: 24px;
+.filter-btn{
+    margin: 10px;
+    padding: 10px;
+    cursor: pointer;
 }
 
 /* Restaurant Card */
@@ -37,8 +38,7 @@
     flex-wrap: wrap;
     /* width: 100%; */
     /* justify-content: flex-start; */
-    border: 2px solid black;
-
+    /* border: 2px solid black; */
 }
 
 .res-card{
