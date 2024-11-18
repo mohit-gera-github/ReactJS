@@ -1,8 +1,9 @@
 import RestaurantCard from "./RestaurantCard";
-import { useEffect, useState } from "react";
+import { useEffect, useState ,useContext} from "react";
 import Shimmer from "./Shimmer";
 import { Link } from "react-router-dom";
 import useOnlineStatus from "../utils/useOnlineStatus";
+import UserContext from "../utils/UserContext";
 
 
 const Body = () => {
@@ -10,7 +11,9 @@ const Body = () => {
     const [filteredRestaurant, setFilteredRestaurant] = useState([]);
 
     const [searchText, setSearchText] = useState("");
+    const{setUserName,LoggedInUser} = useContext(UserContext);
 
+   
     useEffect(() => {
         fetchData();
     }, []);
@@ -18,7 +21,6 @@ const Body = () => {
     const fetchData = async () => {
         const data = await fetch("https://www.swiggy.com/dapi/restaurants/list/v5?lat=28.7107868&lng=77.0810068&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING");
         const json = await data.json();
-
 
         // optional chaining
         setListOfRestaurant(json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
@@ -34,7 +36,7 @@ const Body = () => {
 
     return listOfRestaurants.length == 0 ? (<Shimmer />) : (
         <div className="body">
-            <div className="filter flex">
+            <div className="filter flex justify-center">
                 <div className="search m-4 p-4">
                     <input
                         type="text"
@@ -69,9 +71,14 @@ const Body = () => {
                     Top Rated Restaurants
                 </button>
                 </div>
+
+                <div className="TopRated m-4 p-4 flex items-center">
+                    <label>Username : </label>
+                <input className="border border-black p-2" value={LoggedInUser} onChange={(e)=>setUserName(e.target.value)}></input>
+                </div>
              
             </div>
-            <div className="res-container flex flex-wrap">
+            <div className="res-container flex flex-wrap justify-center">
                 {
                     filteredRestaurant.map((restaurant) => (
 

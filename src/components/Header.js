@@ -1,10 +1,12 @@
-import { useState } from "react";
+import { useState,useContext} from "react";
 import { LOGO_URL } from "../utils/constant";
 import { Link } from "react-router-dom";
 import useOnlineStatus from "../utils/useOnlineStatus";
+import UserContext from "../utils/UserContext";
 
 const Header = () => {
 
+    const {LoggedInUser} = useContext(UserContext);
     const [btnNameReact,setBtnNameReact] = useState("login");
     const onlineStatus = useOnlineStatus();
     return (
@@ -16,7 +18,6 @@ const Header = () => {
                 <ul className="flex p-4 m-4">
                     <li className="px-4">Online Status:{onlineStatus ? "✅" : "❎"}</li>
                     <li className="px-4"><Link to="/">Home</Link></li>
-                    <li className="px-4"><Link to="/">Home</Link></li>
                     <li className="px-4"><Link to="/about">About Us</Link></li>
                     <li className="px-4"><Link to="/contact">Contact Us</Link></li>
                     <li className="px-4"><Link to="/grocery">Grocery</Link></li>
@@ -24,6 +25,7 @@ const Header = () => {
                     <button className="login" onClick={()=>{
                       btnNameReact == "login" ? setBtnNameReact("Logout") :setBtnNameReact("login");
                     }}>{btnNameReact}</button>
+                    <li className="px-4 font-bold">{LoggedInUser}</li>
                 </ul>
             </div>
         </div>
